@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <title>Timer</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <input type="text" id="datetime-picker" />
-    <button type="button" data-start disabled>Start</button>
-
+    <button type="button" data-start>Start</button>
     <div class="timer">
         <div class="field">
             <span class="value" data-days>00</span>
@@ -30,8 +29,7 @@
             <span class="label">Seconds</span>
         </div>
     </div>
-
-    <script type="module" src="../src/js/01-timer.js"></script>
+    <script type="module" src="../js/01-timer.js"></script>
 </body>
 
 </html>
