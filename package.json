@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "glob": "^8.1.0",
+    "prettier": "^3.3.2",
     "vite": "^4.5.2"
   },
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
@@ -17,6 +19,7 @@
   "dependencies": {
     "flatpickr": "^4.6.13",
     "izitoast": "^1.4.0",
+    "notiflix": "^3.2.7",
     "vite-plugin-full-reload": "^1.0.5",
     "vite-plugin-html-inject": "^1.0.1"
   }
