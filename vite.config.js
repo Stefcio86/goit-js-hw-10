@@ -4,14 +4,14 @@ import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 
 export default defineConfig(({ command }) => {
+  const base = command === 'serve' ? '/' : '/goit-js-hw-10/';
+
   return {
-    define: {
-      [command === 'serve' ? 'global' : '_global']: {},
-    },
+    base,
     root: 'src',
+    plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
     build: {
       sourcemap: true,
-
       rollupOptions: {
         input: glob.sync('./src/*.html'),
         output: {
@@ -25,6 +25,5 @@ export default defineConfig(({ command }) => {
       },
       outDir: '../dist',
     },
-    plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
   };
 });
