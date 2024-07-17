@@ -1,53 +1,30 @@
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import Notiflix from 'notiflix';
 
-const userDelayInput = document.querySelector(
-  'body > form > label > input[type=number]'
-);
-const notificationBTN = document.getElementById('main-batton');
-const goodCheckbox = document.querySelector(
-  'body > form > fieldset > label:nth-child(2) > input[type=radio]'
-);
+const form = document.querySelector('.form');
 
-let currentTaskId = 0;
+form.addEventListener('submit', event => {
+  event.preventDefault();
 
-const isItWorking = taskId => {
-  const delay = userDelayInput.value;
+  const delay = Number(form.elements.delay.value);
+  const state = form.elements.state.value;
 
+  createPromise(delay, state)
+    .then(message => {
+      Notiflix.Notify.success(`✅ Fulfilled promise in ${message}ms`);
+    })
+    .catch(message => {
+      Notiflix.Notify.failure(`❌ Rejected promise in ${message}ms`);
+    });
+});
+
+function createPromise(delay, state) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (taskId !== currentTaskId) {
-        return;
-      }
-
-      const isChecked = goodCheckbox.checked;
-
-      if (!isChecked) {
-        reject(`❌ Rejected promise in ${delay}ms`);
+      if (state === 'fulfilled') {
+        resolve(delay);
       } else {
-        resolve(`✅ Fulfilled promise in ${delay}ms`);
+        reject(delay);
       }
     }, delay);
   });
-};
-
-notificationBTN.addEventListener('click', event => {
-  event.preventDefault();
-  const taskId = ++currentTaskId;
-
-  isItWorking(taskId)
-    .then(message => {
-      if (taskId === currentTaskId) {
-        iziToast.show({
-          message: message,
-        });
-      }
-    })
-    .catch(error => {
-      if (taskId === currentTaskId) {
-        iziToast.show({
-          message: error,
-        });
-      }
-    });
-});
+}
