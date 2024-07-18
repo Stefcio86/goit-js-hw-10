@@ -1,19 +1,18 @@
 import Notiflix from 'notiflix';
+import iziToast from 'izitoast';
 
-const form = document.querySelector('.form');
-
-form.addEventListener('submit', event => {
+document.querySelector('.form').addEventListener('submit', function (event) {
   event.preventDefault();
 
-  const delay = Number(form.elements.delay.value);
-  const state = form.elements.state.value;
+  const delay = parseInt(event.target.elements.delay.value);
+  const state = event.target.elements.state.value;
 
   createPromise(delay, state)
     .then(message => {
-      Notiflix.Notify.success(`✅ Fulfilled promise in ${message}ms`);
+      iziToast.success({ title: 'Success', message });
     })
     .catch(message => {
-      Notiflix.Notify.failure(`❌ Rejected promise in ${message}ms`);
+      iziToast.error({ title: 'Error', message });
     });
 });
 
@@ -21,9 +20,9 @@ function createPromise(delay, state) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (state === 'fulfilled') {
-        resolve(delay);
+        resolve(`✅ Fulfilled promise in ${delay}ms`);
       } else {
-        reject(delay);
+        reject(`❌ Rejected promise in ${delay}ms`);
       }
     }, delay);
   });
